@@ -13,14 +13,15 @@ const hbs = exphbs.create({
 });
 
 app.engine('hbs', hbs.engine);
+
 app.set('view engine', 'hbs');
 app.set('views', 'views');
-
-app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use('/', homeRouter);
 app.use('/add', addRouter);
 app.use('/courses', coursesRouter);
+
+app.use(express.static('public'));
 
 const PORT = process.env.port || 3000;
 
