@@ -4,7 +4,6 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     const courses = await Course.find().lean();
-    console.log(courses);
     res.render('courses', {
         title: 'courses',
         isCourses: true,
@@ -37,5 +36,16 @@ router.get('/:id', async (req, res) => {
         course
     });
 });
+
+router.post('/delete', async (req, res) => {
+    try {
+        await Course.deleteOne({
+            _id: req.body.id
+        })
+        res.redirect('/courses');
+    } catch(e) {
+        console.log(e);
+    }
+})
 
 module.exports = router;
